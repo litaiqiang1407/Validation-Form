@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Validation Form</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="main">
+      <form action="" method="POST" class="form" id="form-1">
+        <h3 class="heading">Register</h3>
+        <p class="desc">Cùng nhau học lập trình miễn phí tại F8 ❤️</p>
+
+        <div class="spacer"></div>
+
+        <div class="form-group">
+          <label for="fullname" class="form-label">Username</label>
+          <input
+            id="fullname"
+            name="fullname"
+            type="text"
+            placeholder="Ex: lythaicuong"
+            class="form-control"
+          />
+          <span class="form-message"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="form-label">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="text"
+            placeholder="Ex: email@domain.com"
+            class="form-control"
+          />
+          <span class="form-message"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="password" class="form-label">Password</label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            placeholder="Enter password"
+            class="form-control"
+          />
+          <span class="form-message"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="password_confirmation" class="form-label"
+            >Confirm Password</label
+          >
+          <input
+            id="password_confirmation"
+            name="password_confirmation"
+            placeholder="Re-enter password"
+            type="password"
+            class="form-control"
+          />
+          <span class="form-message"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="province" class="form-label">Select Province</label>
+          <select name="province" id="province" class="form-control">
+            <option value="">--- Select Province ---</option>
+            <option value="ag">AG</option>
+            <option value="bd">BD</option>
+            <option value="dn">DN</option>
+          </select>
+          <span class="form-message"></span>
+        </div>
+
+        <div class="form-group">
+          <div class="horizontal">
+            <div>
+              <label for="gender" class="form-label">Gender</label>
+            </div>
+            <div class="gender-list">
+              <div class="gender-item">
+                <input
+                  name="gender"
+                  type="checkbox"
+                  value="male"
+                  class="form-control"
+                />
+                <span>Male</span>
+              </div>
+
+              <div class="gender-item">
+                <input
+                  name="gender"
+                  type="checkbox"
+                  value="female"
+                  class="form-control"
+                />
+                <span>Female</span>
+              </div>
+              <div class="gender-item">
+                <input
+                  name="gender"
+                  type="checkbox"
+                  value="other"
+                  class="form-control"
+                />
+                <span>Other</span>
+              </div>
+            </div>
+          </div>
+
+          <span class="form-message"></span>
+        </div>
+
+        <button class="form-submit">Submit</button>
+      </form>
+    </div>
+    <script src="./validator.js"></script>
+    <script>
+      // Output
+      Validation({
+        formSelector: "#form-1",
+        formGroupSelector: ".form-group",
+        errorMessageSelector: ".form-message",
+        rules: [
+          Validation.isRequired("#fullname"),
+          Validation.isRequired("#email"),
+          Validation.isEmail("#email"),
+          Validation.isRequired("#password"),
+          Validation.isPassword("#password", 6),
+          Validation.isRequired("#password_confirmation"),
+          Validation.isConfirmedPassword("#password_confirmation", () => {
+            return document.querySelector("#form-1 #password").value;
+          }),
+          Validation.isRequired("input[name='gender']"),
+          Validation.isRequired("#province"),
+        ],
+        onSubmit(data) {
+          console.log(data);
+        },
+      });
+    </script>
+  </body>
+</html>
