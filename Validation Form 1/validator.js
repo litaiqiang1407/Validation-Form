@@ -70,7 +70,6 @@ function Validation(options) {
       if (isFormValid) {
         if (typeof options.onSubmit === "function") {
           const enableInputs = formElement.querySelectorAll("[name]");
-
           const formValues = Array.from(enableInputs).reduce(
             (values, inputs) => {
               switch (inputs.type) {
@@ -79,7 +78,6 @@ function Validation(options) {
                     "input[name='" + inputs.name + "']:checked"
                   ).value;
                   break;
-
                 case "checkbox":
                   if (!inputs.matches(":checked")) {
                     if (!values[inputs.name]) {
@@ -92,13 +90,10 @@ function Validation(options) {
                     values[inputs.name] = [];
                   }
                   values[inputs.name].push(inputs.value);
-
                   break;
-
                 case "file":
                   values[inputs.name] = inputs.files;
                   break;
-
                 default:
                   values[inputs.name] = inputs.value;
               }
